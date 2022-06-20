@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_main">
+    <fragment
+        android:id="@+id/importFragment"
+        android:name="fragment.ImportFragment"
+        android:label="fragment_import"
+        tools:layout="@layout/fragment_import" >
+        <action
+            android:id="@+id/action_importFragment_to_importFragment1"
+            app:destination="@id/importFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/importFragment1"
+        android:name="fragment.ImportFragment1"
+        android:label="fragment_import1"
+        tools:layout="@layout/fragment_import1" >
+        <action
+            android:id="@+id/action_importFragment1_to_importFragment22"
+            app:destination="@id/importFragment22" />
+    </fragment>
+    <fragment
+        android:id="@+id/importFragment22"
+        android:name="fragment.ImportFragment2"
+        android:label="fragment_import2"
+        tools:layout="@layout/fragment_import2" >
+        <action
+            android:id="@+id/action_importFragment22_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_importFragment"
+            app:destination="@id/importFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_resultFragment2"
+            app:destination="@id/resultFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment2"
+        android:name="fragment.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment2_to_resultFragment1"
+            app:destination="@id/resultFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment1"
+        android:name="fragment.ResultFragment1"
+        android:label="fragment_result1"
+        tools:layout="@layout/fragment_result1" >
+        <action
+            android:id="@+id/action_resultFragment1_to_resultFragment22"
+            app:destination="@id/resultFragment22" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment22"
+        android:name="fragment.ResultFragment2"
+        android:label="fragment_result2"
+        tools:layout="@layout/fragment_result2" >
+        <action
+            android:id="@+id/action_resultFragment22_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
