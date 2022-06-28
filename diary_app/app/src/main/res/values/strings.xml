@@ -11,4 +11,5 @@
     <string name="title_result2">마음에 드시나요?</string>
     <string name="analyze">분석하기</string>
     <string name="showresult">결과보기</string>
+    <string name="evaluate">평가하기</string>
 </resources>

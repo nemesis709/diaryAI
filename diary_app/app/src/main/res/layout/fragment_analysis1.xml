@@ -1,10 +1,11 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/import_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.ImportFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AnalysisFragment1">
 
 
     <LinearLayout
@@ -22,38 +23,13 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:gravity="center"
-            android:text="서버 전송"
+            android:text="서비스 소개"
             android:textSize="45sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:gravity="center"
-            android:text="파일명"
-            android:textSize="25sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05" />
-
-        <Button
-            android:layout_width="180sp"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:gravity="center"
-            android:text="서버로 전송하기" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25" />
+            android:layout_weight="0.55"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +39,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/prev"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
                 android:text="@string/prev" />
@@ -72,9 +49,10 @@
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/next"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/home" />
+                android:text="@string/next" />
         </LinearLayout>
 
         <Space
@@ -82,6 +60,4 @@
             android:layout_height="0dp"
             android:layout_weight="0.1" />
     </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

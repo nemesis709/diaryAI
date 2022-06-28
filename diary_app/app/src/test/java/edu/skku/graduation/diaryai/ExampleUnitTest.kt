@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryai
+package edu.skku.graduation.diaryAI
 
 import org.junit.Test
 

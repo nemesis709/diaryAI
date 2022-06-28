@@ -1,11 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/import_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.ResultFragment">
-
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,21 +19,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.25"
+            android:layout_weight="0.8"
             android:gravity="center"
-            android:text="결과 보기"
+            android:text="@string/title"
             android:textSize="45sp" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:background="@color/black" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.05"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,18 +32,20 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/analysis"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/prev" />
+                android:text="@string/analyze" />
 
             <Space
                 android:layout_width="100sp"
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/result"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/next" />
+                android:text="@string/showresult" />
         </LinearLayout>
 
         <Space
@@ -63,6 +53,5 @@
             android:layout_height="0dp"
             android:layout_weight="0.1" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

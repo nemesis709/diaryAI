@@ -1,10 +1,10 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/import_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.ResultFragment2">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ResultFragment2">
 
 
     <LinearLayout
@@ -22,13 +22,21 @@
             android:layout_height="0dp"
             android:layout_weight="0.25"
             android:gravity="center"
-            android:text="@string/title_result2"
+            android:text="오늘의 일기"
             android:textSize="45sp" />
 
         <TextView
+            android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.55"/>
+            android:layout_weight="0.5"
+            android:background="@color/black"
+            android:text="this is a test"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,18 +46,20 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/clipboard"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/prev" />
+                android:text="@string/clip" />
 
             <Space
                 android:layout_width="100sp"
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/evaluate"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/home" />
+                android:text="@string/eval" />
         </LinearLayout>
 
         <Space
@@ -59,4 +69,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

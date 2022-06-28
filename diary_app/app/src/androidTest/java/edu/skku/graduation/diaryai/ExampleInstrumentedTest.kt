@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryai
+package edu.skku.graduation.diaryAI
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("edu.skku.graduation.diaryai", appContext.packageName)
+        assertEquals("edu.skku.graduation.diaryAI", appContext.packageName)
     }
 }
