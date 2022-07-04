@@ -31,7 +31,7 @@ class ResultFragment1 : Fragment() {
         navController = Navigation.findNavController(view)
 
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
-            activity!!.finish()
+            requireActivity().finish()
         }
 
         view.findViewById<Button>(R.id.next).setOnClickListener(){

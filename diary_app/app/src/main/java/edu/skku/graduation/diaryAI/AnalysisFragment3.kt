@@ -40,7 +40,7 @@ class AnalysisFragment3 : Fragment() {
         }
 
         view.findViewById<Button>(R.id.home).setOnClickListener(){
-            activity!!.finish()
+            requireActivity().finish()
         }
     }
 }

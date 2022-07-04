@@ -4,13 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_analyze.xml" value="0.46979166666666666" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.4557291666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_result.xml" value="0.46979166666666666" />
         <entry key="app/src/main/res/layout/fragment_analysis1.xml" value="0.46979166666666666" />
         <entry key="app/src/main/res/layout/fragment_analysis2.xml" value="0.46979166666666666" />
         <entry key="app/src/main/res/layout/fragment_analysis3.xml" value="0.46979166666666666" />
-        <entry key="app/src/main/res/layout/fragment_result1.xml" value="0.46979166666666666" />
-        <entry key="app/src/main/res/layout/fragment_result2.xml" value="0.46979166666666666" />
+        <entry key="app/src/main/res/layout/fragment_result1.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_result2.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_result3.xml" value="0.46979166666666666" />
       </map>
     </option>

@@ -37,7 +37,7 @@ class ResultFragment3 : Fragment() {
         navController = Navigation.findNavController(view)
 
         view.findViewById<Button>(R.id.home).setOnClickListener(){
-            activity!!.finish()
+            requireActivity().finish()
         }
 
         view.findViewById<RatingBar>(R.id.ratingBar1).onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, rating, _ -> param1 = rating }
