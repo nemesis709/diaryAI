@@ -1,13 +1,12 @@
 package edu.skku.graduation.diaryAI.analysisFragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
@@ -33,31 +32,16 @@ class AnalysisFragment2 : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        view.findViewById<Button>(R.id.kakao).setOnClickListener(){
-            openApplicationOrMarket("com.kakao.talk")
+        view.findViewById<Button>(R.id.server).setOnClickListener(){
+            Toast.makeText(activity,"send",Toast.LENGTH_SHORT).show()
         }
-
-//        view.findViewById<Button>(R.id.file).setOnClickListener(){
-//            //filepicker
-//        }
 
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
             navController.navigate(R.id.action_analysisFragment2_to_analysisFragment1)
         }
 
-        view.findViewById<Button>(R.id.next).setOnClickListener(){
-            navController.navigate(R.id.action_analysisFragment2_to_analysisFragment3)
+        view.findViewById<Button>(R.id.home).setOnClickListener(){
+            requireActivity().finish()
         }
-    }
-
-    fun openApplicationOrMarket(packageName: String) {
-        var intent = requireContext().packageManager.getLaunchIntentForPackage(packageName)
-        if (intent == null) {
-            intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://details?id=$packageName")
-        }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        requireContext().startActivity(intent)
     }
 }

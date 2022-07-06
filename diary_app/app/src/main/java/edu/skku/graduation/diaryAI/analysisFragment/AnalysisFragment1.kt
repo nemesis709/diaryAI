@@ -1,5 +1,7 @@
 package edu.skku.graduation.diaryAI.analysisFragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,6 +33,14 @@ class AnalysisFragment1 : Fragment() {
 
         navController = Navigation.findNavController(view)
 
+        view.findViewById<Button>(R.id.kakao).setOnClickListener(){
+            openApplicationOrMarket("com.kakao.talk")
+        }
+
+//        view.findViewById<Button>(R.id.file).setOnClickListener(){
+//            //filepicker
+//        }
+
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
             requireActivity().finish()
         }
@@ -38,5 +48,16 @@ class AnalysisFragment1 : Fragment() {
         view.findViewById<Button>(R.id.next).setOnClickListener(){
             navController.navigate(R.id.action_analysisFragment1_to_analysisFragment2)
         }
+    }
+
+    fun openApplicationOrMarket(packageName: String) {
+        var intent = requireContext().packageManager.getLaunchIntentForPackage(packageName)
+        if (intent == null) {
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("market://details?id=$packageName")
+        }
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        requireContext().startActivity(intent)
     }
 }
