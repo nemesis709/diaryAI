@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryAI
+package edu.skku.graduation.diaryAI.resultFragment
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -13,11 +13,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import edu.skku.graduation.diaryAI.R
 
 
 class ResultFragment2 : Fragment() {
 
     lateinit var navController: NavController
+    var index = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +30,6 @@ class ResultFragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_result2, container, false)
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/analysisFragment1"
-        android:name="edu.skku.graduation.diaryAI.AnalysisFragment1"
+        android:name="edu.skku.graduation.diaryAI.analysisFragment.AnalysisFragment1"
         android:label="fragment_analysis1"
         tools:layout="@layout/fragment_analysis1" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment2"
-        android:name="edu.skku.graduation.diaryAI.AnalysisFragment2"
+        android:name="edu.skku.graduation.diaryAI.analysisFragment.AnalysisFragment2"
         android:label="fragment_analysis2"
         tools:layout="@layout/fragment_analysis2" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment3"
-        android:name="edu.skku.graduation.diaryAI.AnalysisFragment3"
+        android:name="edu.skku.graduation.diaryAI.analysisFragment.AnalysisFragment3"
         android:label="fragment_analysis3"
         tools:layout="@layout/fragment_analysis3" >
         <action

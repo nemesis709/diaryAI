@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryAI
+package edu.skku.graduation.diaryAI.analysisFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import edu.skku.graduation.diaryAI.R
 
-class ResultFragment1 : Fragment() {
+class AnalysisFragment1 : Fragment() {
 
     lateinit var navController: NavController
 
@@ -22,7 +23,7 @@ class ResultFragment1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_result1, container, false)
+        return inflater.inflate(R.layout.fragment_analysis1, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +36,7 @@ class ResultFragment1 : Fragment() {
         }
 
         view.findViewById<Button>(R.id.next).setOnClickListener(){
-            navController.navigate(R.id.action_resultFragment1_to_resultFragment2)
+            navController.navigate(R.id.action_analysisFragment1_to_analysisFragment2)
         }
     }
 }

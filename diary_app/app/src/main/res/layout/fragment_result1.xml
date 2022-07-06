@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ResultFragment1">
+    tools:context=".resultFragment.ResultFragment1">
 
 
     <LinearLayout
@@ -25,11 +25,11 @@
             android:text="결과 보기"
             android:textSize="45sp" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDiary"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:background="@color/black" />
+            android:layout_weight="0.5" />
 
         <Space
             android:layout_width="match_parent"

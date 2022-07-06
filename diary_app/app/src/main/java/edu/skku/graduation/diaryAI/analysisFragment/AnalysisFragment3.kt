@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryAI
+package edu.skku.graduation.diaryAI.analysisFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import edu.skku.graduation.diaryAI.R
 
 class AnalysisFragment3 : Fragment() {
 

@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryAI
+package edu.skku.graduation.diaryAI.analysisFragment
 
 import android.content.Intent
 import android.net.Uri
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import edu.skku.graduation.diaryAI.R
 
 class AnalysisFragment2 : Fragment() {
 
