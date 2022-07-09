@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_resultFragment1_to_resultFragment2"
             app:destination="@id/resultFragment2" />
+        <action
+            android:id="@+id/action_resultFragment1_self"
+            app:destination="@id/resultFragment1" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment2"

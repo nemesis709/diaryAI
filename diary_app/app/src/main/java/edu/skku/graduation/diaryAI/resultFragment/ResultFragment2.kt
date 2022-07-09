@@ -20,11 +20,6 @@ import edu.skku.graduation.diaryAI.R
 class ResultFragment2 : Fragment() {
 
     lateinit var navController: NavController
-    var index = -1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +30,13 @@ class ResultFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val bundle = arguments
+        if (bundle != null) {
+            val diaryid = bundle.getInt("ID")
+            Toast.makeText(requireContext(), diaryid,Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(requireContext(), "diaryid",Toast.LENGTH_SHORT).show()
+        }
         navController = Navigation.findNavController(view)
 
         view.findViewById<Button>(R.id.clipboard).setOnClickListener(){

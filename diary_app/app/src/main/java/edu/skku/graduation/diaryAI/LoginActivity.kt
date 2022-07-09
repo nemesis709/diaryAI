@@ -27,11 +27,11 @@ class LoginActivity : AppCompatActivity() {
             ID = findViewById<EditText>(R.id.user_id).text.toString()
             PW = findViewById<EditText>(R.id.user_pw).text.toString()
             //서버로 전송
-            if (ID=="1"&&PW=="1"){
+//            if (ID=="1"&&PW=="1"){
                 startActivity(Intent(this, MainActivity::class.java))
-            }else{
-                Toast.makeText(this, "ID나 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show()
-            }
+//            }else{
+//                Toast.makeText(this, "ID나 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show()
+//            }
         }
     }
 }

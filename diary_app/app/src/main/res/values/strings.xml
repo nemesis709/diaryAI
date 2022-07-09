@@ -5,6 +5,7 @@
     <string name="title">Diary AI</string>
     <string name="prev">이전으로</string>
     <string name="next">다음으로</string>
+    <string name="refresh">새로고침</string>
     <string name="home">홈으로</string>
     <string name="clip">클립보드에\n복사</string>
     <string name="eval">평가하기</string>

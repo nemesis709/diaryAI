@@ -6,50 +6,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import edu.skku.graduation.diaryAI.R
 import edu.skku.graduation.diaryAI.db.DBHelper
 import edu.skku.graduation.diaryAI.db.DiaryData
+import edu.skku.graduation.diaryAI.resultFragment.ResultFragment1
 import edu.skku.graduation.diaryAI.resultFragment.ResultFragment2
 import java.text.SimpleDateFormat
+
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var listData = ArrayList<DiaryData>()
     var helper: DBHelper? = null
 
-    interface ItemClick{ //인터페이스
-        fun onClick(view: View, position: Int)
-    }
-
-    var itemClick: ItemClick? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler, parent, false)
-
-        view.setOnClickListener {
-            Toast.makeText(
-                parent.context,
-                view.findViewById<TextView>(R.id.textId).text,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary: DiaryData = listData[position]
         holder.setMemo(diary)
-//        if (itemClick != null) {
-//            holder.binding.memoItemCardview.setOnClickListener(View.OnClickListener {
-//                itemClick?.onClick(it, position)
-//            })
-//        }
+        var navController: NavController?
+
+        holder.apply {
+            itemView.setOnClickListener {
+                val resultFragment2 = ResultFragment2()
+                val bundle = Bundle()
+                bundle.putInt("ID", diary.diary_id!!)
+                resultFragment2.arguments = bundle
+                navController = Navigation.findNavController(itemView)
+                navController!!.navigate(R.id.action_resultFragment1_to_resultFragment2)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -69,11 +61,10 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             diaryID.text = diary.diary_id.toString()
             title.text = diary.title
             content.text = diary.content
-            val pattern = "yy/MM/dd"
-            val simpleDateFormat = SimpleDateFormat(pattern)
-            val date_text = simpleDateFormat.format(diary.datetime)
-            date.text = date_text
-            rating.rating = 3.0f;
+            val simpleDateFormat = SimpleDateFormat("yy/MM/dd")
+            val text_date = simpleDateFormat.format(diary.datetime)
+            date.text = text_date
+            rating.rating = 3.0f
         }
     }
 }

@@ -20,10 +20,6 @@ class ResultFragment3 : Fragment() {
     private var param2:Float = 3F
     private var param3:Float = 3F
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

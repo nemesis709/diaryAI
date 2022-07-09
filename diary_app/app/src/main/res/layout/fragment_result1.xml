@@ -54,10 +54,10 @@
                 android:layout_height="match_parent" />
 
             <Button
-                android:id="@+id/next"
+                android:id="@+id/refresh"
                 android:layout_width="120sp"
                 android:layout_height="match_parent"
-                android:text="@string/next" />
+                android:text="@string/refresh" />
         </LinearLayout>
 
         <Space
