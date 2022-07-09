@@ -5,7 +5,15 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-data class DiaryData(var diary_id: Int?, var title: String, var content: String, var rate: Double, var datetime:Long) {}
+data class DiaryData(
+    var diary_id: Int?,
+    var title: String,
+    var content: String,
+    var rate1: Float,
+    var rate2: Float,
+    var rate3: Float,
+    var datetime: Long
+) {}
 
 class DBHelper(
     context: Context?,
@@ -20,13 +28,15 @@ class DBHelper(
                 "title TEXT NOT NULL, " +
                 "content TEXT NOT NULL, " +
                 "datetime integer NOT NULL," +
-                "rate TEXT NOT NULL);";
+                "rate1 TEXT NOT NULL," +
+                "rate2 TEXT NOT NULL," +
+                "rate3 TEXT NOT NULL);"
 
         db.execSQL(create)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        val sql: String = "DROP TABLE if exists diary"
+        val sql = "DROP TABLE if exists diary"
         db.execSQL(sql)
         onCreate(db)
     }
@@ -37,8 +47,10 @@ class DBHelper(
         //넘겨줄 컬럼의 매개변수 지정
         values.put("title", diary.title)
         values.put("content", diary.content)
-        values.put("rate", diary.rate)
-        values.put("datetime",diary.datetime)
+        values.put("rate1", diary.rate1)
+        values.put("rate2", diary.rate2)
+        values.put("rate3", diary.rate3)
+        values.put("datetime", diary.datetime)
         //쓰기나 수정이 가능한 데이터베이스 변수
         val wd = writableDatabase
         wd.insert("diary", null, values)
@@ -62,15 +74,44 @@ class DBHelper(
             val id = cursor.getInt(cursor.getColumnIndexOrThrow("diary_id"))
             val title = cursor.getString(cursor.getColumnIndexOrThrow("title"))
             val content = cursor.getString(cursor.getColumnIndexOrThrow("content"))
-            val rate = cursor.getDouble(cursor.getColumnIndexOrThrow("rate"))
+            val rate1 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate1"))
+            val rate2 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate2"))
+            val rate3 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate3"))
             val datetime = cursor.getLong(cursor.getColumnIndexOrThrow("datetime"))
 
-            list.add(DiaryData(id, title, content, rate,datetime))
+            list.add(DiaryData(id, title, content, rate1, rate2, rate3, datetime))
         }
         cursor.close()
         rd.close()
 
         return list
+    }
+
+    fun selectDiary(ID: Int): DiaryData {
+        var query = DiaryData(null, "null", "null", 3.0f, 3.0f,3.0f,0)
+        //ID 조회
+        val selectID = "select * from diary where diary_id=$ID"
+        //읽기전용 데이터베이스 변수
+        val rd = readableDatabase
+        //데이터를 받아 줍니다.
+        val cursor = rd.rawQuery(selectID, null)
+        //반복문을 사용하여 list 에 데이터를 넘겨 줍시다.
+        while (cursor.moveToNext()) {
+
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow("diary_id"))
+            val title = cursor.getString(cursor.getColumnIndexOrThrow("title"))
+            val content = cursor.getString(cursor.getColumnIndexOrThrow("content"))
+            val rate1 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate1"))
+            val rate2 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate2"))
+            val rate3 = cursor.getFloat(cursor.getColumnIndexOrThrow("rate3"))
+            val datetime = cursor.getLong(cursor.getColumnIndexOrThrow("datetime"))
+
+            query = DiaryData(id, title, content, rate1, rate2, rate3, datetime)
+        }
+        cursor.close()
+        rd.close()
+
+        return query
     }
 
     //update 메소드
@@ -79,21 +120,15 @@ class DBHelper(
 
         values.put("title", diary.title)
         values.put("content", diary.content)
-        values.put("rate", diary.rate)
-        values.put("datetime",diary.datetime)
+        values.put("rate1", diary.rate1)
+        values.put("rate2", diary.rate2)
+        values.put("rate3", diary.rate3)
+        values.put("datetime", diary.datetime)
 
         val wd = writableDatabase
-        wd.update("memo", values, "id=${diary.diary_id}", null)
+        wd.update("diary", values, "diary_id=${diary.diary_id}", null)
         wd.close()
 
-    }
-
-    //delete 메소드
-    fun deleteDiary(diary: DiaryData) {
-        val delete = "delete from diary where id = ${diary.diary_id}"
-        val db = writableDatabase
-        db.execSQL(delete)
-        db.close()
     }
 
     //clear
@@ -103,5 +138,4 @@ class DBHelper(
         db.execSQL(delete)
         db.close()
     }
-
 }

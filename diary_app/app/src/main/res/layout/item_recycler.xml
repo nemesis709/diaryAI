@@ -42,6 +42,7 @@
             android:numStars="5"
             android:rating="3"
             android:stepSize="0.5"
+            style="?android:attr/ratingBarStyleSmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:isIndicator="true"
@@ -56,7 +57,7 @@
             android:layout_marginBottom="32dp"
             android:text="내용"
             android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@+id/rating"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/date"/>
 
@@ -69,7 +70,7 @@
             android:layout_marginBottom="32dp"
             android:text="날짜"
             android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@+id/rating"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
