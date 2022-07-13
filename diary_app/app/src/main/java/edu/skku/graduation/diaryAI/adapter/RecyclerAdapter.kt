@@ -1,5 +1,6 @@
 package edu.skku.graduation.diaryAI.adapter
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.skku.graduation.diaryAI.R
 import edu.skku.graduation.diaryAI.db.DBHelper
 import edu.skku.graduation.diaryAI.db.DiaryData
-import edu.skku.graduation.diaryAI.resultFragment.ResultFragment1
-import edu.skku.graduation.diaryAI.resultFragment.ResultFragment2
 import java.text.SimpleDateFormat
 
-
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var listData = ArrayList<DiaryData>()
     var helper: DBHelper? = null
+    lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -31,15 +30,14 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         val diary: DiaryData = listData[position]
         holder.setMemo(diary)
         var navController: NavController?
+        context = view?.context!!
 
         holder.apply {
             itemView.setOnClickListener {
-                val resultFragment2 = ResultFragment2()
                 val bundle = Bundle()
-                bundle.putInt("ID", diary.diary_id!!)
-                resultFragment2.arguments = bundle
+                bundle.putInt("clickID", diary.diary_id!!)
                 navController = Navigation.findNavController(itemView)
-                navController!!.navigate(R.id.action_resultFragment1_to_resultFragment2)
+                navController!!.navigate(R.id.action_resultFragment1_to_resultFragment2,bundle)
             }
         }
     }
@@ -61,10 +59,9 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             diaryID.text = diary.diary_id.toString()
             title.text = diary.title
             content.text = diary.content
-            val simpleDateFormat = SimpleDateFormat("yy/MM/dd")
-            val text_date = simpleDateFormat.format(diary.datetime)
-            date.text = text_date
-            rating.rating = 3.0f
+            date.text = SimpleDateFormat("yy/MM/dd").format(diary.datetime)
+            val rate = (diary.rate1 + diary.rate2 + diary.rate3)/3
+            rating.rating = rate
         }
     }
 }

@@ -11,16 +11,17 @@ import edu.skku.graduation.diaryAI.db.DiaryData
 import java.util.*
 
 class ResultActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val helper = DBHelper(this, "diary", null, 1)
         createDB(helper)
         setContentView(R.layout.activity_result)
     }
-
     fun createDB(helper: DBHelper) {
         helper.clearDiary()
-        helper.insertDiary(DiaryData(0, "test", "테스트입니다1", 3.0, Calendar.getInstance().time.time))
-        helper.insertDiary(DiaryData(0, "test", "테스트입니다2", 3.0, Calendar.getInstance().time.time))
+        //server 통신
+        helper.insertDiary(DiaryData(0, "test", "테스트입니다1",4.0f,4.0f,3.0f, Calendar.getInstance().time.time))
+        helper.insertDiary(DiaryData(0, "test", "테스트입니다2", 1.0f,2.0f,1.0f, Calendar.getInstance().time.time))
     }
 }

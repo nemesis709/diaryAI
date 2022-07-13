@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +28,7 @@ class ResultFragment1 : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_result1, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerDiary)
-        val adapter = RecyclerAdapter()
+        val adapter = RecyclerAdapter(container)
 
         helper = DBHelper(requireContext(), "diary", null, 1)
         adapter.listData.addAll(helper.selectDiary())
@@ -52,9 +51,12 @@ class ResultFragment1 : Fragment() {
         }
 
         view.findViewById<Button>(R.id.refresh).setOnClickListener() {
-            navController.navigate(R.id.action_resultFragment1_self)
+
             val helper = DBHelper(requireContext(), "diary", null, 1)
             ResultActivity().createDB(helper)
+//            navController.navigate(R.id.action_resultFragment1_self)
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 }
