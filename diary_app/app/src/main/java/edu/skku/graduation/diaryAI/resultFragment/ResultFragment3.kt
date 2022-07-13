@@ -17,7 +17,7 @@ import edu.skku.graduation.diaryAI.db.DiaryData
 
 class ResultFragment3 : Fragment() {
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     private var param1: Float = 3F
     private var param2: Float = 3F
