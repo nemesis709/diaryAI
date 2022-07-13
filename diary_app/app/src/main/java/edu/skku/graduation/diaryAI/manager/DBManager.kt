@@ -15,7 +15,7 @@ data class DiaryData(
     var datetime: Long
 ) {}
 
-class DBHelper(
+class DBManager(
     context: Context?,
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,

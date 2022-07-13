@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBHelper
+import edu.skku.graduation.diaryAI.db.DBManager
 import edu.skku.graduation.diaryAI.db.DiaryData
 import java.text.SimpleDateFormat
 
@@ -25,16 +25,16 @@ class ResultFragment2 : Fragment() {
 
     private lateinit var navController: NavController
     private var diaryID: Int = 0
-    private lateinit var helper:DBHelper
-    private lateinit var result:DiaryData
-    private var rate:Float=0.0f
+    private lateinit var helper: DBManager
+    private lateinit var result: DiaryData
+    private var rate: Float = 0.0f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        diaryID = arguments!!.getInt("clickID")
-        helper = DBHelper(requireContext(), "diary", null, 1)
+        diaryID = requireArguments().getInt("clickID")
+        helper = DBManager(requireContext(), "diary", null, 1)
         result = helper.selectDiary(diaryID)
         rate = (result.rate1 + result.rate2 + result.rate3) / 3
         Log.d("result:::::::::::", result.toString())
@@ -63,8 +63,8 @@ class ResultFragment2 : Fragment() {
 
         view.findViewById<Button>(R.id.evaluate).setOnClickListener() {
             val bundle = Bundle()
-            bundle.putInt("finalID",diaryID)
-            navController.navigate(R.id.action_resultFragment2_to_resultFragment3,bundle)
+            bundle.putInt("finalID", diaryID)
+            navController.navigate(R.id.action_resultFragment2_to_resultFragment3, bundle)
         }
     }
 

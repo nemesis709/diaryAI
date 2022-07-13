@@ -11,13 +11,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBHelper
+import edu.skku.graduation.diaryAI.db.DBManager
 import edu.skku.graduation.diaryAI.db.DiaryData
 import java.text.SimpleDateFormat
 
 class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var listData = ArrayList<DiaryData>()
-    var helper: DBHelper? = null
+    var helper: DBManager? = null
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

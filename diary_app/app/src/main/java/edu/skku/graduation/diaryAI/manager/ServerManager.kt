@@ -1,6 +1,5 @@
-package edu.skku.graduation.diaryAI.adapter
+package edu.skku.graduation.diaryAI.manager
 
-import android.util.Log
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -11,7 +10,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ServerAdapter {
+class ServerManager {
 
     suspend fun signupRequest(ID:String, PW:String): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
@@ -46,7 +45,6 @@ class ServerAdapter {
     }
 
     suspend fun loginRequest(ID:String, PW:String,): String = suspendCoroutine { continuation ->
-
         val jsonObject = JSONObject()
         try {
             jsonObject.put("userId", ID)
@@ -61,6 +59,32 @@ class ServerAdapter {
         val request: Request = Request.Builder()
             .url("http://3.39.61.211:8080/login")
             .post(body)
+            .build()
+
+        var result:String
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                continuation.resumeWithException(e) // resume calling coroutine
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    result = response.body!!.string()
+                    continuation.resume(result) // resume calling coroutine
+
+                }
+            }
+        })
+    }
+
+    suspend fun getDiaryRequest(): String = suspendCoroutine { continuation ->
+        val client = OkHttpClient()
+        val token = PrefManager.prefs.getString("token","")
+        val request: Request = Request.Builder()
+            .url("http://3.39.61.211:8080/login")
+            .addHeader("X-AUTH-TOKEN", token)
             .build()
 
         var result:String

@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBHelper
+import edu.skku.graduation.diaryAI.db.DBManager
 import edu.skku.graduation.diaryAI.db.DiaryData
 
 class ResultFragment3 : Fragment() {
@@ -23,15 +23,16 @@ class ResultFragment3 : Fragment() {
     private var param2: Float = 3F
     private var param3: Float = 3F
     private var diaryID: Int = 0
-    private lateinit var helper:DBHelper
+    private lateinit var helper:DBManager
     private lateinit var diary: DiaryData
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        helper = DBHelper(requireContext(), "diary", null, 1)
-        diaryID = arguments!!.getInt("finalID")
+        helper = DBManager(requireContext(), "diary", null, 1)
+        diaryID = requireArguments().getInt("finalID")
         diary = helper.selectDiary(diaryID)
         Log.d("ResultID", diaryID.toString())
         // Inflate the layout for this fragment
@@ -44,10 +45,13 @@ class ResultFragment3 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val r1=view.findViewById<RatingBar>(R.id.ratingBar1)
+        val r2=view.findViewById<RatingBar>(R.id.ratingBar2)
+        val r3=view.findViewById<RatingBar>(R.id.ratingBar3)
 
-        view.findViewById<RatingBar>(R.id.ratingBar1).rating = param1
-        view.findViewById<RatingBar>(R.id.ratingBar2).rating = param2
-        view.findViewById<RatingBar>(R.id.ratingBar3).rating = param3
+        r1.rating = param1
+        r2.rating = param2
+        r3.rating = param3
 
         navController = Navigation.findNavController(view)
 
@@ -55,11 +59,11 @@ class ResultFragment3 : Fragment() {
             requireActivity().finish()
         }
 
-        view.findViewById<RatingBar>(R.id.ratingBar1).onRatingBarChangeListener =
+        r1.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, rating, _ -> param1 = rating }
-        view.findViewById<RatingBar>(R.id.ratingBar2).onRatingBarChangeListener =
+        r2.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, rating, _ -> param2 = rating }
-        view.findViewById<RatingBar>(R.id.ratingBar3).onRatingBarChangeListener =
+        r3.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, rating, _ -> param3 = rating }
 
         view.findViewById<Button>(R.id.evaluate).setOnClickListener() {
