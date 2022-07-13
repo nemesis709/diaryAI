@@ -1,77 +1,60 @@
 package edu.skku.graduation.diaryAI
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.gson.JsonObject
+import edu.skku.graduation.diaryAI.adapter.ServerAdapter
+import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var ID:String
-    lateinit var PW:String
+    lateinit var ID: String
+    lateinit var PW: String
+    private val server = ServerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        findViewById<Button>(R.id.sign).setOnClickListener{
+        findViewById<Button>(R.id.sign).setOnClickListener {
             ID = findViewById<EditText>(R.id.user_id).text.toString()
             PW = findViewById<EditText>(R.id.user_pw).text.toString()
 
             //서버로 전송
-            setGetFun(ID,PW)
-
-            Toast.makeText(this, "$ID//$PW",Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                val result = server.signupRequest(ID, PW)
+                Log.d("RESULT:::::::::::::", result)
+            }
         }
 
-        findViewById<Button>(R.id.login).setOnClickListener{
+        findViewById<Button>(R.id.login).setOnClickListener {
             ID = findViewById<EditText>(R.id.user_id).text.toString()
             PW = findViewById<EditText>(R.id.user_pw).text.toString()
 
-            //서버로 전송
-//            if (ID=="1"&&PW=="1"){
-                startActivity(Intent(this, MainActivity::class.java))
-//            }else{
-//                Toast.makeText(this, "ID나 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show()
-//            }
+//            서버로 전송
+            lifecycleScope.launch {
+                val result = server.loginRequest(ID, PW)
+                Log.d("RESULT:::::::::::::", result)
+
+                //성공
+                val jsonObject = JSONObject(result)
+                val token = jsonObject.getString("token")
+                Log.d("TOKEN:::::::::::::", token)
+            }
         }
     }
 
-    private fun setGetFun(ID:String, PW:String) {
-// create your json here
-        val jsonObject =JSONObject();
-        try {
-            jsonObject.put("userid", ID);
-            jsonObject.put("password", PW);
-        } catch (e: JSONException) {
-            e.printStackTrace();
-        }
-
-        val client = OkHttpClient()
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-        val body = jsonObject.toString().toRequestBody(mediaType)
-        val request: Request = Request.Builder()
-            .url("http://3.39.61.211:8080/join")
-            .post(body)
-            .build()
-
-        val response: Response?
-        try {
-            response = client.newCall(request).execute()
-            val resStr = response.body!!.string()
-            Log.d("result::::::",resStr)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-    }
 }
