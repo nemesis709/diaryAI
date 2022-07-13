@@ -1,4 +1,4 @@
-package edu.skku.graduation.diaryAI.db
+package edu.skku.graduation.diaryAI.manager
 
 import android.content.ContentValues
 import android.content.Context

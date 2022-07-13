@@ -1,5 +1,6 @@
 package edu.skku.graduation.diaryAI.manager
 
+import android.util.Log
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -83,7 +84,7 @@ class ServerManager {
         val client = OkHttpClient()
         val token = PrefManager.prefs.getString("token","")
         val request: Request = Request.Builder()
-            .url("http://3.39.61.211:8080/login")
+            .url("http://3.39.61.211:8080/getDiary")
             .addHeader("X-AUTH-TOKEN", token)
             .build()
 
@@ -98,7 +99,8 @@ class ServerManager {
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     result = response.body!!.string()
-                    continuation.resume(result) // resume calling coroutine
+                    Log.d("GET DIARY::::::::",result)
+                    continuation.resume(result)
 
                 }
             }

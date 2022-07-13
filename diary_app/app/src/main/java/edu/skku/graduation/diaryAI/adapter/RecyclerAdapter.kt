@@ -11,8 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBManager
-import edu.skku.graduation.diaryAI.db.DiaryData
+import edu.skku.graduation.diaryAI.manager.DBManager
+import edu.skku.graduation.diaryAI.manager.DiaryData
 import java.text.SimpleDateFormat
 
 class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {

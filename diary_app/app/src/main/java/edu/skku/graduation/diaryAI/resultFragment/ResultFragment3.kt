@@ -12,8 +12,8 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBManager
-import edu.skku.graduation.diaryAI.db.DiaryData
+import edu.skku.graduation.diaryAI.manager.DBManager
+import edu.skku.graduation.diaryAI.manager.DiaryData
 
 class ResultFragment3 : Fragment() {
 
@@ -23,7 +23,7 @@ class ResultFragment3 : Fragment() {
     private var param2: Float = 3F
     private var param3: Float = 3F
     private var diaryID: Int = 0
-    private lateinit var helper:DBManager
+    private lateinit var helper: DBManager
     private lateinit var diary: DiaryData
 
 

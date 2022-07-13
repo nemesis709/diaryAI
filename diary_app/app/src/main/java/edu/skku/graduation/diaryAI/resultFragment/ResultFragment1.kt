@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.skku.graduation.diaryAI.R
 import edu.skku.graduation.diaryAI.ResultActivity
 import edu.skku.graduation.diaryAI.adapter.RecyclerAdapter
-import edu.skku.graduation.diaryAI.db.DBManager
+import edu.skku.graduation.diaryAI.manager.DBManager
 
 
 class ResultFragment1 : Fragment(){
@@ -26,7 +26,7 @@ class ResultFragment1 : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().finish()
         }
     }

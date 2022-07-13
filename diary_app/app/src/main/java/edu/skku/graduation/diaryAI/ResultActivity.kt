@@ -2,8 +2,8 @@ package edu.skku.graduation.diaryAI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import edu.skku.graduation.diaryAI.db.DBManager
-import edu.skku.graduation.diaryAI.db.DiaryData
+import edu.skku.graduation.diaryAI.manager.DBManager
+import edu.skku.graduation.diaryAI.manager.DiaryData
 import java.util.*
 
 class ResultActivity : AppCompatActivity() {

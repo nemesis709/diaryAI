@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.db.DBManager
-import edu.skku.graduation.diaryAI.db.DiaryData
+import edu.skku.graduation.diaryAI.manager.DBManager
+import edu.skku.graduation.diaryAI.manager.DiaryData
 import java.text.SimpleDateFormat
 
 
