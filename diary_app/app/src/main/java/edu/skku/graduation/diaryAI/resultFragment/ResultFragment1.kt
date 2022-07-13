@@ -64,8 +64,6 @@ class ResultFragment1 : Fragment(){
             val helper = DBManager(requireContext(), "diary", null, 1)
             ResultActivity().createDB(helper)
             navController.navigate(R.id.action_resultFragment1_self)
-//            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-//            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 }
