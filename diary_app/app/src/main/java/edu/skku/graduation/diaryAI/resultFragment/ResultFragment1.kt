@@ -1,20 +1,28 @@
 package edu.skku.graduation.diaryAI.resultFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.ResultActivity
 import edu.skku.graduation.diaryAI.adapter.RecyclerAdapter
 import edu.skku.graduation.diaryAI.manager.DBManager
+import edu.skku.graduation.diaryAI.manager.DiaryData
+import edu.skku.graduation.diaryAI.manager.ServerManager
+import kotlinx.coroutines.launch
+import org.json.JSONArray
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ResultFragment1 : Fragment(){
@@ -25,7 +33,6 @@ class ResultFragment1 : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().finish()
         }
@@ -38,15 +45,33 @@ class ResultFragment1 : Fragment(){
         val view = inflater.inflate(R.layout.fragment_result1, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerDiary)
         val adapter = RecyclerAdapter(container)
-
         helper = DBManager(requireContext(), "diary", null, 1)
-        adapter.listData.addAll(helper.selectDiary())
-        adapter.helper = helper
 
-        linearLayoutManager = LinearLayoutManager(activity)
+        lifecycleScope.launch {
+            helper.clearDiary()
+            val server = ServerManager()
+            val result = server.getDiaryRequest()
+            //성공
+            try {
+                val array = JSONArray(result)
 
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
+                for (i in 0 until array.length()) {
+                    val testModel =
+                        Gson().fromJson(array.getJSONObject(i).toString(), DiaryData::class.java)
+                    helper.insertDiary(testModel)
+                }
+            } catch (e: Exception) {
+                Log.d("result:::::::::::::", "???")
+            }finally {
+                adapter.listData.addAll(helper.selectDiary())
+                adapter.helper = helper
+
+                linearLayoutManager = LinearLayoutManager(activity)
+                recyclerView.layoutManager = linearLayoutManager
+                recyclerView.adapter = adapter
+            }
+        }
+
         return view
     }
 
@@ -55,14 +80,11 @@ class ResultFragment1 : Fragment(){
 
         navController = Navigation.findNavController(view)
 
-        view.findViewById<Button>(R.id.prev).setOnClickListener() {
+        view.findViewById<Button>(R.id.prev).setOnClickListener {
             requireActivity().finish()
         }
 
-        view.findViewById<Button>(R.id.refresh).setOnClickListener() {
-
-            val helper = DBManager(requireContext(), "diary", null, 1)
-            ResultActivity().createDB(helper)
+        view.findViewById<Button>(R.id.refresh).setOnClickListener {
             navController.navigate(R.id.action_resultFragment1_self)
         }
     }

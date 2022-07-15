@@ -6,13 +6,13 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 data class DiaryData(
-    var diary_id: Int?,
+    var diary_id: Int,
     var title: String,
     var content: String,
-    var rate1: Float,
-    var rate2: Float,
-    var rate3: Float,
-    var datetime: Long
+    var rating1: Float,
+    var rating2: Float,
+    var rating3: Float,
+    var date: Long
 ) {}
 
 class DBManager(
@@ -24,10 +24,10 @@ class DBManager(
 
     override fun onCreate(db: SQLiteDatabase) {
         val create: String = "CREATE TABLE if not exists diary (" +
-                "diary_id integer primary key autoincrement," +
+                "diary_id integer primary key," +
                 "title TEXT NOT NULL, " +
                 "content TEXT NOT NULL, " +
-                "datetime integer NOT NULL," +
+                "datetime bigint NOT NULL," +
                 "rate1 TEXT NOT NULL," +
                 "rate2 TEXT NOT NULL," +
                 "rate3 TEXT NOT NULL);"
@@ -47,10 +47,10 @@ class DBManager(
         //넘겨줄 컬럼의 매개변수 지정
         values.put("title", diary.title)
         values.put("content", diary.content)
-        values.put("rate1", diary.rate1)
-        values.put("rate2", diary.rate2)
-        values.put("rate3", diary.rate3)
-        values.put("datetime", diary.datetime)
+        values.put("rate1", diary.rating1)
+        values.put("rate2", diary.rating2)
+        values.put("rate3", diary.rating3)
+        values.put("datetime", diary.date)
         //쓰기나 수정이 가능한 데이터베이스 변수
         val wd = writableDatabase
         wd.insert("diary", null, values)
@@ -88,7 +88,7 @@ class DBManager(
     }
 
     fun selectDiary(ID: Int): DiaryData {
-        var query = DiaryData(null, "null", "null", 3.0f, 3.0f,3.0f,0)
+        var query = DiaryData(1, "null", "null", 3.0f, 3.0f,3.0f,0)
         //ID 조회
         val selectID = "select * from diary where diary_id=$ID"
         //읽기전용 데이터베이스 변수
@@ -120,10 +120,10 @@ class DBManager(
 
         values.put("title", diary.title)
         values.put("content", diary.content)
-        values.put("rate1", diary.rate1)
-        values.put("rate2", diary.rate2)
-        values.put("rate3", diary.rate3)
-        values.put("datetime", diary.datetime)
+        values.put("rate1", diary.rating1)
+        values.put("rate2", diary.rating2)
+        values.put("rate3", diary.rating3)
+        values.put("datetime", diary.date)
 
         val wd = writableDatabase
         wd.update("diary", values, "diary_id=${diary.diary_id}", null)

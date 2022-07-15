@@ -36,9 +36,9 @@ class ResultFragment3 : Fragment() {
         diary = helper.selectDiary(diaryID)
         Log.d("ResultID", diaryID.toString())
         // Inflate the layout for this fragment
-        param1 = diary.rate1
-        param2 = diary.rate2
-        param3 = diary.rate3
+        param1 = diary.rating1
+        param2 = diary.rating2
+        param3 = diary.rating3
 
         return inflater.inflate(R.layout.fragment_result3, container, false)
     }
@@ -68,12 +68,16 @@ class ResultFragment3 : Fragment() {
 
         view.findViewById<Button>(R.id.evaluate).setOnClickListener() {
             val text = "$param1//$param2//$param3"
-            diary.rate1 = param1
-            diary.rate2 = param2
-            diary.rate3 = param3
+            diary.rating1 = param1
+            diary.rating2 = param2
+            diary.rating3 = param3
             helper.updateDiary(diary)
 
             Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putInt("clickID", diary.diary_id)
+            navController.navigate(R.id.action_resultFragment3_to_resultFragment2,bundle)
+
         }
     }
 }

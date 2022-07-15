@@ -59,8 +59,8 @@ class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<Recyc
             diaryID.text = diary.diary_id.toString()
             title.text = diary.title
             content.text = diary.content
-            date.text = SimpleDateFormat("yy/MM/dd").format(diary.datetime)
-            val rate = (diary.rate1 + diary.rate2 + diary.rate3)/3
+            date.text = SimpleDateFormat("yy/MM/dd").format(diary.date)
+            val rate = (diary.rating1 + diary.rating2 + diary.rating3)/3
             rating.rating = rate
         }
     }

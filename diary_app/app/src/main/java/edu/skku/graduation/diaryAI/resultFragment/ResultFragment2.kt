@@ -36,7 +36,7 @@ class ResultFragment2 : Fragment() {
         diaryID = requireArguments().getInt("clickID")
         helper = DBManager(requireContext(), "diary", null, 1)
         result = helper.selectDiary(diaryID)
-        rate = (result.rate1 + result.rate2 + result.rate3) / 3
+        rate = (result.rating1 + result.rating2 + result.rating3) / 3
         Log.d("result:::::::::::", result.toString())
         Log.d("RATE:::::::", rate.toString())
 
@@ -46,13 +46,6 @@ class ResultFragment2 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-
-        view.findViewById<TextView>(R.id.title).text = result.title
-        view.findViewById<TextView>(R.id.content).text = result.content
-        diaryID = result.diary_id!!
-        view.findViewById<TextView>(R.id.date).text =
-            SimpleDateFormat("yy/MM/dd").format(result.datetime)
-
         view.findViewById<Button>(R.id.clipboard).setOnClickListener() {
             val clipboard: ClipboardManager =
                 requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -70,6 +63,11 @@ class ResultFragment2 : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        view?.findViewById<TextView>(R.id.title)?.text = result.title
+        view?.findViewById<TextView>(R.id.content)?.text = result.content
+        diaryID = result.diary_id
+        view?.findViewById<TextView>(R.id.date)?.text =
+            SimpleDateFormat("yy/MM/dd").format(result.date)
         view?.findViewById<RatingBar>(R.id.ratingBar)?.rating = rate
     }
 }

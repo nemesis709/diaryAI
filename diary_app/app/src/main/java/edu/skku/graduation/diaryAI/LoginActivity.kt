@@ -23,6 +23,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         PrefManager.prefs.setString("token","")
+        findViewById<EditText>(R.id.user_id).setText("lee")
+        findViewById<EditText>(R.id.user_pw).setText("123")
 
         findViewById<Button>(R.id.sign).setOnClickListener {
             userID = findViewById<EditText>(R.id.user_id).text.toString()
