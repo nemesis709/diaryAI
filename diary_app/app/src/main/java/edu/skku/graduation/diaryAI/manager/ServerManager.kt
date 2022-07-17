@@ -45,7 +45,7 @@ class ServerManager {
         })
     }
 
-    suspend fun loginRequest(ID:String, PW:String,): String = suspendCoroutine { continuation ->
+    suspend fun loginRequest(ID: String, PW: String): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
         try {
             jsonObject.put("userId", ID)
@@ -137,6 +137,7 @@ class ServerManager {
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     result = response.body!!.string()
+                    Log.d("UPDATE DIARY::::::::",result)
                     continuation.resume(result) // resume calling coroutine
                 }
             }

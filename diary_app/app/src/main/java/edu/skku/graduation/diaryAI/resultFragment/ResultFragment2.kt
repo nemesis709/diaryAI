@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -28,6 +29,14 @@ class ResultFragment2 : Fragment() {
     private lateinit var helper: DBManager
     private lateinit var result: DiaryData
     private var rate: Float = 0.0f
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            navController = Navigation.findNavController(requireView())
+            navController.navigate(R.id.action_resultFragment2_to_resultFragment1)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

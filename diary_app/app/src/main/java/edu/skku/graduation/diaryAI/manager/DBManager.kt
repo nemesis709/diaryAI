@@ -45,6 +45,7 @@ class DBManager(
     fun insertDiary(diary: DiaryData) {
         val values = ContentValues()
         //넘겨줄 컬럼의 매개변수 지정
+        values.put("diary_id", diary.diary_id)
         values.put("title", diary.title)
         values.put("content", diary.content)
         values.put("rate1", diary.rating1)

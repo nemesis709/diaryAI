@@ -20,27 +20,6 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val helper = DBManager(this, "diary", null, 1)
-//        helper.clearDiary()
-//        lifecycleScope.launch {
-//            val server = ServerManager()
-//            val result = server.getDiaryRequest()
-//            //성공
-//            try {
-//                val array = JSONArray(result)
-//
-//                for (i in 0 until array.length()) {
-//                    val testModel =
-//                        Gson().fromJson(array.getJSONObject(i).toString(), DiaryData::class.java)
-//                    helper.insertDiary(testModel)
-//                }
-//                Log.d("DATE:::::", Calendar.getInstance().time.time.toString())
-//            } catch (e: Exception) {
-//                Log.d("result:::::::::::::", "???")
-//            } finally {
-//                setContentView(R.layout.activity_result)
-//            }
-//        }
         setContentView(R.layout.activity_result)
     }
 }

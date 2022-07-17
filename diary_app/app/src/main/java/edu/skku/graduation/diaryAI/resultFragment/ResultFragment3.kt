@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
+import edu.skku.graduation.diaryAI.adapter.RecyclerAdapter
 import edu.skku.graduation.diaryAI.manager.DBManager
 import edu.skku.graduation.diaryAI.manager.DiaryData
+import edu.skku.graduation.diaryAI.manager.ServerManager
+import kotlinx.coroutines.launch
 
 class ResultFragment3 : Fragment() {
 
@@ -26,7 +31,6 @@ class ResultFragment3 : Fragment() {
     private lateinit var helper: DBManager
     private lateinit var diary: DiaryData
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +39,6 @@ class ResultFragment3 : Fragment() {
         diaryID = requireArguments().getInt("finalID")
         diary = helper.selectDiary(diaryID)
         Log.d("ResultID", diaryID.toString())
-        // Inflate the layout for this fragment
         param1 = diary.rating1
         param2 = diary.rating2
         param3 = diary.rating3
@@ -55,10 +58,6 @@ class ResultFragment3 : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        view.findViewById<Button>(R.id.home).setOnClickListener() {
-            requireActivity().finish()
-        }
-
         r1.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, rating, _ -> param1 = rating }
         r2.onRatingBarChangeListener =
@@ -67,17 +66,21 @@ class ResultFragment3 : Fragment() {
             RatingBar.OnRatingBarChangeListener { _, rating, _ -> param3 = rating }
 
         view.findViewById<Button>(R.id.evaluate).setOnClickListener() {
-            val text = "$param1//$param2//$param3"
             diary.rating1 = param1
             diary.rating2 = param2
             diary.rating3 = param3
             helper.updateDiary(diary)
-
-            Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
-            val bundle = Bundle()
-            bundle.putInt("clickID", diary.diary_id)
-            navController.navigate(R.id.action_resultFragment3_to_resultFragment2,bundle)
-
+            lifecycleScope.launch {
+                ServerManager().updateRequest(diary)
+                //성공
+                try {
+                    val bundle = Bundle()
+                    bundle.putInt("clickID", diary.diary_id)
+                    navController.navigate(R.id.action_resultFragment3_to_resultFragment2,bundle)
+                } catch (e: Exception) {
+                    Log.d("result:::::::::::::", "???")
+                }
+            }
         }
     }
 }
