@@ -11,6 +11,10 @@ import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class AnalysisFragment1 : Fragment() {
 
@@ -40,6 +44,22 @@ class AnalysisFragment1 : Fragment() {
 //        view.findViewById<Button>(R.id.file).setOnClickListener(){
 //            //filepicker
 //        }
+//
+//        val client = OkHttpClient()
+//        var file:File
+//
+//        val mediaType = "application/json; charset=utf-8".toMediaType()
+//        val requestBody:RequestBody = MultipartBody.Builder()
+//            .setType(MultipartBody.FORM)
+//            .addFormDataPart("file", file.name,
+//                File("your absolute file path").asRequestBody(mediaType)
+//            )
+//            .build();
+//
+//        val request = Request.Builder()
+//            .url("Your url")
+//            .post(requestBody)
+//            .build();
 
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
             requireActivity().finish()
