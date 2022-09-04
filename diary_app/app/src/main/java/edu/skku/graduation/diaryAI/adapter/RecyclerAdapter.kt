@@ -28,14 +28,14 @@ class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<Recyc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary: DiaryData = listData[position]
-        holder.setMemo(diary)
+        holder.setDiary(diary)
         var navController: NavController?
         context = view?.context!!
 
         holder.apply {
             itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putInt("clickID", diary.diary_id!!)
+                bundle.putInt("clickID", diary.diary_id)
                 navController = Navigation.findNavController(itemView)
                 navController!!.navigate(R.id.action_resultFragment1_to_resultFragment2,bundle)
             }
@@ -55,7 +55,7 @@ class RecyclerAdapter(private val view: ViewGroup?) : RecyclerView.Adapter<Recyc
         private val content: TextView = itemView.findViewById(R.id.content)
         private val date: TextView = itemView.findViewById(R.id.date)
 
-        fun setMemo(diary: DiaryData) {
+        fun setDiary(diary: DiaryData) {
             diaryID.text = diary.diary_id.toString()
             title.text = diary.title
             content.text = diary.content
