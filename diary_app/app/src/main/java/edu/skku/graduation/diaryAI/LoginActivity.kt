@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
             //서버로 전송
             lifecycleScope.launch {
-                val result = server.signupRequest(userID, userPW)
+                val result = server.joinRequest(userID, userPW)
                 Log.d("RESULT:::::::::::::", result)
                 try{
                     val jsonObject = JSONObject(result)

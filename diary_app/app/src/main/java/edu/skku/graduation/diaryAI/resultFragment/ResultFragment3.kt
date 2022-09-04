@@ -8,13 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RatingBar
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import edu.skku.graduation.diaryAI.adapter.RecyclerAdapter
 import edu.skku.graduation.diaryAI.manager.DBManager
 import edu.skku.graduation.diaryAI.manager.DiaryData
 import edu.skku.graduation.diaryAI.manager.ServerManager
@@ -71,7 +68,7 @@ class ResultFragment3 : Fragment() {
             diary.rating3 = param3
             helper.updateDiary(diary)
             lifecycleScope.launch {
-                ServerManager().updateRequest(diary)
+                ServerManager().updateDiaryRequest(diary)
                 //성공
                 try {
                     val bundle = Bundle()

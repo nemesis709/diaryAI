@@ -1,24 +1,29 @@
 package edu.skku.graduation.diaryAI.analysisFragment
 
+import android.app.Application
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.OpenableColumns
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+
 
 class AnalysisFragment1 : Fragment() {
 
     lateinit var navController: NavController
+    lateinit var fileUri:Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +33,6 @@ class AnalysisFragment1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_analysis1, container, false)
     }
 
@@ -41,36 +45,39 @@ class AnalysisFragment1 : Fragment() {
             openApplicationOrMarket("com.kakao.talk")
         }
 
-//        view.findViewById<Button>(R.id.file).setOnClickListener(){
-//            //filepicker
-//        }
-//
-//        val client = OkHttpClient()
-//        var file:File
-//
-//        val mediaType = "application/json; charset=utf-8".toMediaType()
-//        val requestBody:RequestBody = MultipartBody.Builder()
-//            .setType(MultipartBody.FORM)
-//            .addFormDataPart("file", file.name,
-//                File("your absolute file path").asRequestBody(mediaType)
-//            )
-//            .build();
-//
-//        val request = Request.Builder()
-//            .url("Your url")
-//            .post(requestBody)
-//            .build();
+
+        view.findViewById<Button>(R.id.file).setOnClickListener(){
+            getContent.launch("text/plain")
+
+        }
 
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
             requireActivity().finish()
         }
 
         view.findViewById<Button>(R.id.next).setOnClickListener(){
-            navController.navigate(R.id.action_analysisFragment1_to_analysisFragment2)
+            val bundle =  Bundle()
+            bundle.putString("path", fileUri.toString())
+            navController.navigate(R.id.action_analysisFragment1_to_analysisFragment2,bundle)
         }
     }
 
-    fun openApplicationOrMarket(packageName: String) {
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri != null) {
+            fileUri = uri
+        }
+        view?.findViewById<TextView>(R.id.filename)!!.text= getNameFromURI(uri)
+
+    }
+
+    private fun getNameFromURI(uri: Uri?): String? {
+        val contentResolver = context!!.contentResolver
+        val c: Cursor? = uri?.let { contentResolver.query(it, null, null, null, null) }
+        c?.moveToFirst()
+        return c?.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+    }
+
+    private fun openApplicationOrMarket(packageName: String) {
         var intent = requireContext().packageManager.getLaunchIntentForPackage(packageName)
         if (intent == null) {
             intent = Intent(Intent.ACTION_VIEW)

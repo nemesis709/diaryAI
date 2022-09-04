@@ -13,7 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class ServerManager {
 
-    suspend fun signupRequest(ID:String, PW:String): String = suspendCoroutine { continuation ->
+    suspend fun joinRequest(ID:String, PW:String): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
         try {
             jsonObject.put("userId", ID)
@@ -106,7 +106,33 @@ class ServerManager {
         })
     }
 
-    suspend fun updateRequest(diary:DiaryData): String = suspendCoroutine { continuation ->
+    suspend fun postDiaryRequest(): String = suspendCoroutine { continuation ->
+        val client = OkHttpClient()
+        val token = PrefManager.prefs.getString("token","")
+        val request: Request = Request.Builder()
+            .url("http://3.39.61.211:8080/postDiary")
+            .addHeader("X-AUTH-TOKEN", token)
+            .build()
+
+        var result:String
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                continuation.resumeWithException(e) // resume calling coroutine
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    result = response.body!!.string()
+                    Log.d("POST DIARY::::::::",result)
+                    continuation.resume(result)
+                }
+            }
+        })
+    }
+
+    suspend fun updateDiaryRequest(diary:DiaryData): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
         try {
             jsonObject.put("diaryId", diary.diary_id)

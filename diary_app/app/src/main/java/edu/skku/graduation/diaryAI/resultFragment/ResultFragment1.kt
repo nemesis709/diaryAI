@@ -21,8 +21,6 @@ import edu.skku.graduation.diaryAI.manager.DiaryData
 import edu.skku.graduation.diaryAI.manager.ServerManager
 import kotlinx.coroutines.launch
 import org.json.JSONArray
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ResultFragment1 : Fragment(){
