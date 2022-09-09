@@ -18,6 +18,8 @@
         android:theme="@style/Theme.Diary_final"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:name=".manager.AccountManager"
     tools:targetApi="31">
         <activity

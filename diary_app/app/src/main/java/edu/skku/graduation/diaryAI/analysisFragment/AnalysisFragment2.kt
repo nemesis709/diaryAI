@@ -1,40 +1,32 @@
 package edu.skku.graduation.diaryAI.analysisFragment
 
-import android.content.ContentValues.TAG
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import edu.skku.graduation.diaryAI.R
+import edu.skku.graduation.diaryAI.manager.ServerManager
+import kotlinx.coroutines.launch
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
-import java.io.File
-import java.io.UnsupportedEncodingException
-import java.net.UnknownHostException
 
 
 class AnalysisFragment2 : Fragment() {
 
     lateinit var navController: NavController
     private var filePath = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val server: ServerManager by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,18 +41,23 @@ class AnalysisFragment2 : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        view.findViewById<Button>(R.id.server).setOnClickListener() {
-            showProgress(true)
-            Handler(Looper.getMainLooper()).postDelayed({
-                // Your Code
-                Toast.makeText(requireContext(),"전송되었습니다",Toast.LENGTH_SHORT).show()
-                showProgress(false)
-            }, 3000)
-            //use volley to http
-        }
         val uri = Uri.parse(filePath)
         val name = getNameFromURI(uri)
         view.findViewById<TextView>(R.id.filename).text=name
+
+        view.findViewById<Button>(R.id.server).setOnClickListener() {
+
+            lifecycleScope.launch {
+                val result = server.postDiaryRequest(uri)
+                Log.d("RESULT:::::::::::::", result)
+//                try{
+//                    val jsonObject = JSONObject(result)
+//
+//                }catch (e: Exception){
+//                }
+            }
+
+        }
 
         view.findViewById<Button>(R.id.prev).setOnClickListener(){
             navController.navigate(R.id.action_analysisFragment2_to_analysisFragment1)

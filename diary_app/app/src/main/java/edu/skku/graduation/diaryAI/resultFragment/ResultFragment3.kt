@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RatingBar
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -68,7 +69,8 @@ class ResultFragment3 : Fragment() {
             diary.rating3 = param3
             helper.updateDiary(diary)
             lifecycleScope.launch {
-                ServerManager().updateDiaryRequest(diary)
+                val server:ServerManager by viewModels()
+                server.updateDiaryRequest(diary)
                 //성공
                 try {
                     val bundle = Bundle()
