@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import edu.skku.graduation.diaryAI.manager.PrefManager
+import edu.skku.graduation.diaryAI.manager.AccountManager
 import edu.skku.graduation.diaryAI.manager.ServerManager
 import kotlinx.coroutines.*
 import org.json.JSONObject
@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        PrefManager.prefs.setString("token","")
+        AccountManager.token.setString("token","")
         findViewById<EditText>(R.id.user_id).setText("lee")
         findViewById<EditText>(R.id.user_pw).setText("123")
 
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                 try{
                     val jsonObject = JSONObject(result)
                     val token = jsonObject.getString("token")
-                    PrefManager.prefs.setString("token",token)
+                    AccountManager.token.setString("token",token)
                     Log.d("TOKEN:::::::::::::", token)
                     startActivity(mainIntent)
                 }catch (e: Exception){

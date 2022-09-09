@@ -1,17 +1,32 @@
 package edu.skku.graduation.diaryAI.manager
 
+import android.Manifest
+import android.app.Activity
+import android.app.Application
+import android.content.ContentResolver
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Environment
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.IOException
+import java.io.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+
 class ServerManager {
+
+    private val okHttpClient: OkHttpClient by lazy { OkHttpClient.Builder().build() }
 
     suspend fun joinRequest(ID:String, PW:String): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
@@ -82,7 +97,7 @@ class ServerManager {
 
     suspend fun getDiaryRequest(): String = suspendCoroutine { continuation ->
         val client = OkHttpClient()
-        val token = PrefManager.prefs.getString("token","")
+        val token = AccountManager.token.getString("token","")
         val request: Request = Request.Builder()
             .url("http://3.39.61.211:8080/getDiary")
             .addHeader("X-AUTH-TOKEN", token)
@@ -106,30 +121,34 @@ class ServerManager {
         })
     }
 
-    suspend fun postDiaryRequest(): String = suspendCoroutine { continuation ->
-        val client = OkHttpClient()
-        val token = PrefManager.prefs.getString("token","")
-        val request: Request = Request.Builder()
-            .url("http://3.39.61.211:8080/postDiary")
-            .addHeader("X-AUTH-TOKEN", token)
-            .build()
+    private fun readFromFile(context: Context, path:String): String? {
 
-        var result:String
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                continuation.resumeWithException(e) // resume calling coroutine
-                e.printStackTrace()
+        val sdCard = Environment.getExternalStorageDirectory()
+        val dir = File(sdCard.absolutePath.toString() + path)
+        var ret = ""
+        try {
+            val inputStream: InputStream = FileInputStream(dir)
+            val inputStreamReader = InputStreamReader(inputStream)
+            val bufferedReader = BufferedReader(inputStreamReader)
+            var receiveString: String? = ""
+            val stringBuilder = StringBuilder()
+            while (bufferedReader.readLine().also { receiveString = it } != null) {
+                stringBuilder.append("\n").append(receiveString)
             }
+            inputStream.close()
+            ret = stringBuilder.toString()
+        } catch (e: FileNotFoundException) {
+            Log.e("login activity", "File not found: $e")
+        } catch (e: IOException) {
+            Log.e("login activity", "Can not read file: $e")
+        }
+        return ret
+    }
 
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    result = response.body!!.string()
-                    Log.d("POST DIARY::::::::",result)
-                    continuation.resume(result)
-                }
-            }
-        })
+    suspend fun postDiaryRequest(context: Context,contentResolver:ContentResolver,uri:Uri): String = suspendCoroutine { continuation ->
+
+        val text = readFromFile(context, "/Documents/KakaoTalk/Chats/NewTextFile.txt")
+        Log.e("CONTENT:::::::::", text.toString())
     }
 
     suspend fun updateDiaryRequest(diary:DiaryData): String = suspendCoroutine { continuation ->
