@@ -48,13 +48,11 @@ class AnalysisFragment2 : Fragment() {
         view.findViewById<Button>(R.id.server).setOnClickListener() {
 
             lifecycleScope.launch {
+                showProgress(true)
                 val result = server.postDiaryRequest(uri)
                 Log.d("RESULT:::::::::::::", result)
-//                try{
-//                    val jsonObject = JSONObject(result)
-//
-//                }catch (e: Exception){
-//                }
+                Toast.makeText(requireContext(),"파일이 전송되었습니다.",Toast.LENGTH_SHORT).show()
+                showProgress(false)
             }
 
         }

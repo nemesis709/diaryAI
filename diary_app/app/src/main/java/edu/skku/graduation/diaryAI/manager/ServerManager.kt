@@ -17,8 +17,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class ServerManager(application: Application?) : AndroidViewModel(application!!)  {
 
-    private val okHttpClient: OkHttpClient by lazy { OkHttpClient.Builder().build() }
-
     suspend fun joinRequest(ID:String, PW:String): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
         try {
@@ -145,12 +143,6 @@ class ServerManager(application: Application?) : AndroidViewModel(application!!)
             }
         })
     }
-//
-//    suspend fun postDiaryRequest(context: Context,contentResolver:ContentResolver,uri:Uri): String = suspendCoroutine { continuation ->
-//
-//        val text = readFromFile(context, "/Documents/KakaoTalk/Chats/NewTextFile.txt")
-//        Log.e("CONTENT:::::::::", text.toString())
-//    }
 
     suspend fun updateDiaryRequest(diary:DiaryData): String = suspendCoroutine { continuation ->
         val jsonObject = JSONObject()
