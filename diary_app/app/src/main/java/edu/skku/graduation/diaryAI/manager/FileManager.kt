@@ -10,7 +10,7 @@ import okio.BufferedSink
 import okio.IOException
 import okio.source
 
-class URItoRequest(
+class FileManager(
     private val contentResolver: ContentResolver,
     private val contentUri: Uri
 ) : RequestBody() {

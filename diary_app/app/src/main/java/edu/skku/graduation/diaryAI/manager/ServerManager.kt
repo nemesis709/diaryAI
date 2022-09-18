@@ -114,7 +114,7 @@ class ServerManager(application: Application?) : AndroidViewModel(application!!)
     suspend fun postDiaryRequest(contentUri: Uri) = suspendCoroutine { continuation ->
         val client = OkHttpClient()
         val contentResolver = getApplication<Application>().contentResolver
-        val requestBody = URItoRequest(contentResolver, contentUri)
+        val requestBody = FileManager(contentResolver, contentUri)
 
         val token = AccountManager.token.getString("token","")
         Log.e("URI::::::", contentUri.toString())
