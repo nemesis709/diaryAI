@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/satisfy"
+            android:text="@string/right"
             android:textSize="32sp"/>
 
         <RatingBar
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/satisfy"
+            android:text="@string/same"
             android:textSize="32sp"/>
 
         <RatingBar

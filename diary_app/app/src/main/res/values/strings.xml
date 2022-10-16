@@ -17,4 +17,7 @@
     <string name="tmp_id">01</string>
     <string name="tmp_title">제목</string>
     <string name="satisfy">만족도</string>
+    <string name="right">정확도</string>
+    <string name="same">유사도</string>
+    <string name="intro">diary AI는 카카오특을 기반으로\n세줄 일기를 자동으로\n생성해주는 서비스입니다.\n\n1. 카카오톡 채팅방에서 파일 내보내기를 선택한다.\n2. diaryAI 어플에서 파일을 선택한다.\n3. 파일 전송하기를 통해 전송한다.</string>
 </resources>
