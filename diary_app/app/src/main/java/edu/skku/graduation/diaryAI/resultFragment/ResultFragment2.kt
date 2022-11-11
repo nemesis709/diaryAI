@@ -58,7 +58,7 @@ class ResultFragment2 : Fragment() {
         view.findViewById<Button>(R.id.clipboard).setOnClickListener() {
             val clipboard: ClipboardManager =
                 requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("label", view.findViewById<TextView>(R.id.result).text)
+            val clip = ClipData.newPlainText("label", view.findViewById<TextView>(R.id.content).text)
             clipboard.setPrimaryClip(clip)
             Toast.makeText(activity, "복사되었습니다", Toast.LENGTH_SHORT).show()
         }
